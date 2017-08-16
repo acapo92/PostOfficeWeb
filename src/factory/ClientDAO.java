@@ -15,7 +15,7 @@ import model.Client;
 
 public class ClientDAO {
 	
-	//Aca kralj
+	
 	private static String LOGIN = "SELECT * FROM `client` WHERE `username` =  ? AND `pass` = ?";
 	private static String LOGINACCOUNT = "SELECT * FROM `client` WHERE `account` =  ?";
 	private static String CHANGEBALANCE = "UPDATE `client` SET `balance` = ? WHERE `client`.`account` = ?";
