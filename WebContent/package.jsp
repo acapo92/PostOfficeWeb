@@ -36,7 +36,7 @@ function onReceiveClick(){
 
 function informationClick(){
 	
-	window.location.replace("information.jsp");
+	window.location.replace("info.jsp");
 	
 }
 

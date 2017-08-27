@@ -22,8 +22,9 @@ import model.Package;
 public class PackageDAO {
 
 	// DEFINICIJA KONEKCIONIH STRINGOVA
-	private static String INSERTPOST = "INSERT INTO `packages`(`sender`, `recipient`, `weight`, `status`, `wayOfSending`, `dateToDeliver`) VALUES (?,?, ?, ?, ?,? )";
+	private static String INSERTPOST = "INSERT INTO `packages`(`sender`, `recipient`, `weight`, `status`, `wayOfSending`, `dateToDeliver`) VALUES (?,?, ?, ?, ?,null )";
 	private static String SELECBYID = "SELECT * FROM `packages` WHERE `id` =?";
+	private static String CHANGESTATUS = "UPDATE `packages` SET `status` = '1', `dateToDeliver` = CURRENT_TIME() WHERE `packages`.`id` = ?";
 	private DataSource ds;
 
 	// DEFINICIJA KONSTRUKTORA ZA PODESAVNJE KONEKCIJU
@@ -60,7 +61,7 @@ public class PackageDAO {
 			pstm.setDouble(3, packageForDelivery.getWeight());
 			pstm.setInt(4, packageForDelivery.getStatus().getValue());
 			pstm.setInt(5, packageForDelivery.getWayOfSending().getValue());
-			pstm.setString(6, "0000-00-00 00:00:00");
+			
 			pstm.execute();
 
 			ResultSet rs = pstm.getGeneratedKeys();
@@ -115,7 +116,7 @@ public class PackageDAO {
 				result = new DbResult(DbResult.Status.OK, "Package found", p);
 
 			} else {
-				result = new DbResult(DbResult.Status.ERROR, "Packege with id " + id + " not found.", new Integer(id));
+				result = new DbResult(DbResult.Status.ERROR, "Posiljka pod brojem " + id + " ne postoji u sistemu.", new Integer(id));
 			}
 
 			con.close();
@@ -128,9 +129,29 @@ public class PackageDAO {
 
 	}
 
-	private Package Package() {
-		// TODO Auto-generated method stub
-		return null;
+	public void changeStatus(int id){
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = ds.getConnection();
+			pstm = con.prepareStatement(CHANGESTATUS);
+
+			
+			pstm.setInt(1, id);
+			
+			pstm.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-}
+	
+	}
+
+
