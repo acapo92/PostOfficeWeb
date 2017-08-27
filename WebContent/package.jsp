@@ -8,5 +8,46 @@
 </head>
 <body>
 
+<h1 align="center">Dobrodosli u POSTEXPRES</h1> <br>
+
+<script type="text/javascript">
+
+function onSentClick(){
+	
+	window.location.replace("send.jsp");
+	
+}
+
+</script>
+
+<script type="text/javascript">
+
+function onReceiveClick(){
+	
+	window.location.replace("receive.jsp");
+	
+}
+
+</script>
+
+</script>
+
+<script type="text/javascript">
+
+function informationClick(){
+	
+	window.location.replace("information.jsp");
+	
+}
+
+</script>
+
+<input align="middle"  type="button" name="go_to_sent" value ="        SLANJE        " onclick="onSentClick()" >
+
+<input align="middle"  type="button" name="go_to_receive" value ="        PRIJEM        " onclick="onReceiveClick()" >
+
+<input align="middle"  type="button" name="go_to_information" value ="        INFO        " onclick="informationClick()" >
+
+<a href="index.jsp">BACK</a>
 </body>
 </html>

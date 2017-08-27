@@ -33,7 +33,7 @@ function onPaymentClick(){
 <input align="middle"  type="button" name="go_to_payment" value ="        UPLATA        " onclick="onPaymentClick()" >
 
 <input align="middle"  type="button" name="go_to_login" value ="        PROVERA/ISPLATA        " onclick="onCheckClick()" >
-
+<a href="index.jsp">BACK</a>
 
 </body>
 </html>

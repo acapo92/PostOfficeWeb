@@ -102,7 +102,7 @@ public class ClientDAO {
 				client.setUsername(rs.getString(4));
 				client.setPass(rs.getString(5));
 				client.setAccount(rs.getInt(6));
-				client.setBalance(rs.getInt(7));
+				client.setBalance(rs.getDouble(7));
 			
 			
 			}
