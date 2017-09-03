@@ -45,18 +45,21 @@ public class packageSent extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		try {
+		
 
 			String sender = request.getParameter("sender");
 			String recipient = request.getParameter("recipient");
-			double weight = Double.parseDouble(request.getParameter("weight"));
-			int wayToSending = Integer.valueOf(request.getParameter("wayToSending"));
+			String Weight = request.getParameter("weight");
+			String WayToSending = request.getParameter("wayToSending");
 
-			if (sender.length() > 0 && sender != null && recipient.length() > 0 && recipient != null && weight > 0
-					&& wayToSending > 0) {
+			if (sender.length() > 0 && sender != null && recipient.length() > 0 && recipient != null && Weight.length() > 0
+					&& WayToSending.length() > 0) {
 
-				System.out.println("aca");
-
+				try {
+					
+					double weight = Double.parseDouble(Weight);
+					int wayToSending = Integer.valueOf(WayToSending);
+					
 				Package packageForDelivery = new Package(0, sender, recipient, weight, Package.Status.NOT_DELIVERED,
 						Package.WayOfSending.createFromInteger(wayToSending), new Date(), null);
 
@@ -78,6 +81,11 @@ public class packageSent extends HttpServlet {
 
 				request.setAttribute("msg", message);
 				request.getRequestDispatcher("send.jsp").forward(request, response);
+				
+				} catch (Exception e) {
+					request.setAttribute("msg", "Težina mora biti broj!");
+					request.getRequestDispatcher("send.jsp").forward(request, response);
+				}
 
 			} else {
 				request.setAttribute("msg", "Uneti sve podatke!");
@@ -85,10 +93,7 @@ public class packageSent extends HttpServlet {
 
 			}
 
-		} catch (Exception e) {
-			request.setAttribute("msg", e.getMessage());
-			request.getRequestDispatcher("send.jsp").forward(request, response);
-		}
+		
 		doGet(request, response);
 	}
 

@@ -46,18 +46,28 @@ public class check extends HttpServlet {
 			try {
 
 				int id = Integer.parseInt(i);
-				PackageDAO d = new PackageDAO();
-				DbResult result = d.selectById(id);
-				Package p = (Package) result.getData();
-				
-				if(p.getDateToDelivered() == null){
-					request.setAttribute("msg"," Paket salje: &nb" +p.getSender()+ ", prima" + p.getRecipient()+", tezina: "+p.getWeight()+", status: nije dostavljen, poslat:"+p.getDateToSent());
-					request.getRequestDispatcher("info.jsp").forward(request, response);
+			
+				try{
+					PackageDAO d = new PackageDAO();
+					DbResult result = d.selectById(id);
+					Package p = (Package) result.getData();
 					
-				}else{
-					request.setAttribute("msg"," Paket salje:" +p.getSender()+", prima" + p.getRecipient()+", tezina: "+p.getWeight()+", status: dostavljen, poslat:"+p.getDateToSent()+", dostavljen:"+p.getDateToDelivered());
-					request.getRequestDispatcher("info.jsp").forward(request, response);	
+					if(p.getDateToDelivered() == null){
+						request.setAttribute("msg"," Paket salje:  " +p.getSender()+ " , prima:  "  + p.getRecipient()+", tezina:  "+p.getWeight()+", status: nije dostavljen, poslat: "+p.getDateToSent());
+						request.getRequestDispatcher("info.jsp").forward(request, response);
+						
+					}else{
+						request.setAttribute("msg"," Paket salje: " +p.getSender()+" , prima: " + p.getRecipient()+", tezina:  "+p.getWeight()+", status: dostavljen, poslat: "+p.getDateToSent()+", dostavljen: "+p.getDateToDelivered());
+						request.getRequestDispatcher("info.jsp").forward(request, response);	
+					}
+					
+					
+				}catch(Exception e){
+					System.err.println(e.getMessage());
+					request.setAttribute("msg", "Pošiljka pod tim brojem ne postoji u sistemu!");
+					request.getRequestDispatcher("info.jsp").forward(request, response);
 				}
+				
 				
 					
 				

@@ -7,7 +7,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #ce1e42;
+    background-color: #fdc600;
     max-height: 70px;
     position: fixed;
     top: 0;
@@ -84,25 +84,41 @@
 	text-align: center;
 	height: 600px;
 	min-height: 400px;
-	background-image: url("http://fancymonk.com/static/image/4a89649bb545af9469aa5a370fb74fb69.jpg");
+	
+
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-color: rgba(0, 0, 0, 0.5px);
 }
 .fancy-monk h1 {
+	float: none;
+	background-image: url("http://edukacija.rs/wp-content/uploads/2015/10/posta-logo.png");
 	font-size: 40px;
 	margin: 0;
-	padding-top: 150px;
+	padding-top: 200px;
 }
 .signinup{
- width:100%;
- height:135vh;
- background:grey;
- opacity:0.6;
+	margin: auto;
+	float: none;
+	
+ 	
+ 	
+ 	
+ 	height: 200px;
+ 	width: 400px;
+ 	
+	background-color: #000040;
+	
+	
+ opacity: 0.9;
+ 
+ 
 }
 .btn-danger{
     background:#ce1e42;
     width:300px;
 }
+
+
 

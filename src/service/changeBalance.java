@@ -47,15 +47,25 @@ public class changeBalance extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String account = request.getParameter("account");
-		String sum = request.getParameter("sum");
+		
 		String button = request.getParameter("send");
 
-		if (sum != null && sum.length() > 0) {
+		
 
 			if (button.equals("Isplati")) {
 
+				String account = request.getParameter("account");
+				String sum = request.getParameter("sum");
+				
+				if(account != null && account.length()>0 &&
+						sum !=null && sum.length()>0){
+					
+				
 				try {
+					
+			
+		
+					
 					double value = Double.parseDouble(sum);
 
 					int accountNo = Integer.parseInt(account);
@@ -72,25 +82,43 @@ public class changeBalance extends HttpServlet {
 					request.setAttribute("msg", e.getMessage());
 					request.getRequestDispatcher("account.jsp").forward(request, response);
 				}
+				} else {
+					request.setAttribute("msg", "Uneti sve podatke!");
+					request.getRequestDispatcher("account.jsp").forward(request, response);
+				}
 
 			} else {
-				double valueToAdd = Double.parseDouble(sum);
-				int accountNo = Integer.parseInt(account);
 				
-				Client client = this.transactionService.payment(accountNo, valueToAdd);
+				String account = request.getParameter("account");
+				String sum = request.getParameter("sum");
 				
-				HttpSession sesija = request.getSession();
-				sesija.setAttribute("Client", client);
+				if(account != null && account.length()>0 &&
+						sum !=null && sum.length()>0){
+					try{
+						double valueToAdd = Double.parseDouble(sum);
+						int accountNo = Integer.parseInt(account);
+						
+						Client client = this.transactionService.payment(accountNo, valueToAdd);
+						
+						HttpSession sesija = request.getSession();
+						sesija.setAttribute("Client", client);
 
-				request.setAttribute("msg", "Uspesna uplata!");
+						request.setAttribute("msg", "Uspesna uplata!");
+						request.getRequestDispatcher("Payment.jsp").forward(request, response);
+
+					}catch (Exception e) {
+						request.setAttribute("msg", "Neispravni podaci!");
+						request.getRequestDispatcher("Payment.jsp").forward(request, response);
+					}
+				
+				
+
+			}else{
+				request.setAttribute("msg", "Uneti sve podatke!");
 				request.getRequestDispatcher("Payment.jsp").forward(request, response);
-
 			}
-		} else {
-			request.setAttribute("msg", "Uneti sve podatke!");
-			request.getRequestDispatcher("account.jsp").forward(request, response);
-		}
-
+		
+			}
 		doGet(request, response);
 	}
 
